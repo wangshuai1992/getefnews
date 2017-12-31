@@ -1,10 +1,12 @@
 package com.wangshuai.efnews.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.wangshuai.efnews.manager.NewsDetailManager;
 import com.wangshuai.efnews.manager.NewsImageManager;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,6 +28,11 @@ public class MainController {
     @Resource
     private NewsImageManager newsImageManager;
 
+    @RequestMapping("/")
+    public String index(Model modelMap) {
+        return "index";
+    }
+
     @RequestMapping("/getDetailList")
     @ResponseBody
     public Object getDetailList() {
@@ -38,24 +45,67 @@ public class MainController {
         return newsImageManager.getImageList();
     }
 
+    @RequestMapping("/getTableData")
+    @ResponseBody
+    public Object getTableData() {
+        JSONArray details = (JSONArray) JSONArray.toJSON(newsDetailManager.getDetailList());
+        JSONArray images = (JSONArray) JSONArray.toJSON(newsImageManager.getImageList());
+
+        JSONArray datas = new JSONArray();
+
+        for (Object o : images) {
+            JSONObject image = JSON.parseObject((String) o);
+
+            String date = image.getString("date");
+            String imgUrl = image.getString("url");
+            JSONObject detail = searchDetailByImageUrl(imgUrl, details);
+
+            String title = detail == null ? "" : detail.getString("title");
+            String detailUrl = detail == null ? "" : detail.getString("url");
+
+            JSONObject data = new JSONObject();
+            data.put("date", date);
+            data.put("imgUrl", imgUrl);
+            data.put("title", title);
+            data.put("detailUrl", detailUrl);
+
+            datas.add(data);
+        }
+
+        return datas;
+    }
+
     @RequestMapping("/test")
     @ResponseBody
     public Object test() {
-        for(String detail : newsDetailManager.getDetailList()) {
+        for (String detail : newsDetailManager.getDetailList()) {
             System.out.println(detail);
         }
 
-        for(String image : newsImageManager.getImageList()) {
+        for (String image : newsImageManager.getImageList()) {
             System.out.println(image);
         }
 
-        JSONArray json1 = (JSONArray)JSONArray.toJSON(newsDetailManager.getDetailList());
-        JSONArray json2 = (JSONArray)JSONArray.toJSON(newsImageManager.getImageList());
+        JSONArray json1 = (JSONArray) JSONArray.toJSON(newsDetailManager.getDetailList());
+        JSONArray json2 = (JSONArray) JSONArray.toJSON(newsImageManager.getImageList());
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("detail", json1);
         jsonObject.put("image", json2);
 
         return jsonObject;
+    }
+
+    private JSONObject searchDetailByImageUrl(String imageUrl, JSONArray details) {
+        for (Object o : details) {
+            JSONObject detail = JSON.parseObject((String) o);
+
+            String url = detail.getString("imgUrl");
+
+            if(imageUrl.equals(url)) {
+                return detail;
+            }
+        }
+        return null;
     }
 }
