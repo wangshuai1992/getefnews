@@ -1,0 +1,12 @@
+# Created by .ignore support plugin (hsz.mobi)
+*~
+*.iml
+*.prefs
+.idea
+.project
+.settings
+.classpath
+*.cache
+*.lock
+target
+*.tern-project
