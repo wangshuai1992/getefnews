@@ -2,12 +2,25 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111726525-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-111726525-1');
+    </script>
 
     <meta name="viewport"
           content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 
-    <title>NEWS</title>
+    <title>无尽的边界活动预告efnews</title>
 
     <meta content="no-cache" http-equiv="cache-control">
     <meta content="no-cache" http-equiv="pragma">
@@ -440,7 +453,7 @@
         var month = dateStr.substring(4, 6);
         var day = dateStr.substring(6, 8);
 
-        return new Date(year, month-1, day);
+        return new Date(year, month - 1, day);
     }
 
 </script>
