@@ -73,7 +73,7 @@ public class NewsImageManager {
      * 定时获取图片信息
      * news_20180101_01_1.jpg
      */
-    @Scheduled(initialDelay = 10000, fixedRate = 60 * 60 * 1000)
+    @Scheduled(initialDelay = 10000, fixedRate = 30 * 60 * 1000)
     public void getImagesFromSite() {
         MessageHttpClient mhc = httpPool.getMhc();
 

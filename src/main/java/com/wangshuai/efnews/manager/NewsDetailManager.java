@@ -103,7 +103,7 @@ public class NewsDetailManager {
     /**
      * 定时从网站获取信息
      */
-    @Scheduled(initialDelay = 10000, fixedRate = 60 * 60 * 1000)
+    @Scheduled(initialDelay = 10000, fixedRate = 30 * 60 * 1000)
     public void getNewsFromSite() {
         MessageHttpClient mhc = httpPool.getMhc();
 
@@ -127,7 +127,7 @@ public class NewsDetailManager {
 
                     String html = mhc.doGet(url, headers, "utf-8");
 
-                    if (html.contains("无尽的边界")) {
+                    if (html.contains("无尽的边界") || html.contains("复活")) {
                         JSONObject json = new JSONObject();
 
                         String title = "";

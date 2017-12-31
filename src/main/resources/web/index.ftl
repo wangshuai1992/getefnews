@@ -339,7 +339,7 @@
 
 <body>
 
-<h2>无尽的边界 活动预告</h2>
+<h2>无尽的边界 活动预告（欢迎提BUG~ 有时更新代码会重启服务器，如果偶尔访问不了可以稍后再试）</h2>
 <div class="wrap">
     <table id="container-table" class="bordered">
         <thead>
@@ -415,6 +415,7 @@
             var data = datas[i];
 
             var dateStr = getDate(data.date).format("yyyy-MM-dd");
+            // var dateStr = data.date;
             var imgUrl = data.imgUrl;
             var title = data.title;
             var detailUrl = data.detailUrl;
@@ -439,7 +440,7 @@
         var month = dateStr.substring(4, 6);
         var day = dateStr.substring(6, 8);
 
-        return new Date(year, month, day);
+        return new Date(year, month-1, day);
     }
 
 </script>
