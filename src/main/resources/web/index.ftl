@@ -148,6 +148,32 @@
             padding-bottom: 1em;
         }
 
+        a {
+            display: inline-block;
+            position: relative;
+            padding-left: 6px;
+            /* Font styles */
+            text-decoration: none;
+            color: #6AB3EC;
+            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
+        }
+
+        a:hover {
+            color: #3C9CE7;
+        }
+
+        a:before {
+            content: "\25BA";
+            font-size: 80%;
+            display: inline-block;
+            padding-right: 3px;
+            pointer-events: none;
+        }
+
+        a:hover:before {
+            color: #F2BF97;
+        }
+
         body {
             width: 80%;
             margin: 40px auto;
@@ -366,7 +392,7 @@
         });
     });
 
-    Date.prototype.format = function (fmt) { 
+    Date.prototype.format = function (fmt) {
         var o = {
             "M+": this.getMonth() + 1, //月份
             "d+": this.getDate(), //日
