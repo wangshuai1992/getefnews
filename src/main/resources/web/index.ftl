@@ -187,8 +187,32 @@
             color: #F2BF97;
         }
 
+        h2 {
+            width: 97.5%;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #CEEEFA;
+            border-bottom: 1px solid;
+            padding: 5px 15px;
+            border-left: 8px solid;
+            margin: 18px 0px 18px 0px;
+            overflow: hidden;
+        }
+
+        h3 {
+            width: 97.5%;
+            font-size: 14px;
+            font-weight: bold;
+            background-color: #F2BF97;
+            border-bottom: 1px solid;
+            padding: 4px 15px;
+            border-left: 8px solid;
+            margin: 18px 0px 18px 0px;
+            overflow: hidden;
+        }
+
         body {
-            width: 80%;
+            width: 85%;
             margin: 40px auto;
             font-family: 'trebuchet MS', 'Lucida sans', Arial;
             font-size: 14px;
@@ -353,6 +377,7 @@
 <body>
 
 <h2>无尽的边界 活动预告（欢迎提BUG~ 有时更新代码会重启服务器，如果偶尔访问不了可以稍后再试）</h2>
+<h3>tips: 一般来说活动图片会比活动文案先出来，所以比较新的活动有时候会显示没有活动详情，这个是正常的，因为官方也没出来~</h3>
 <div class="wrap">
     <table id="container-table" class="bordered">
         <thead>
