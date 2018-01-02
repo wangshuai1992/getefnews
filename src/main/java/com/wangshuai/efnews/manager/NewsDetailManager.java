@@ -39,11 +39,6 @@ public class NewsDetailManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(NewsDetailManager.class);
 
     /**
-     * detail信息json列表
-     */
-    private final List<String> tempDetailList = NewsHolder.getTempDetailList();
-
-    /**
      * 匹配标题的正则表达式
      */
     private Pattern titlePattern = Pattern.compile("<span id=\"news-title\"><a href=\"#\">.*?</a></span>");
@@ -71,6 +66,12 @@ public class NewsDetailManager {
     private Executor executor;
 
     /**
+     * 列表存储操作
+     */
+    @Resource
+    private NewsHolder newsHolder;
+
+    /**
      * URL
      */
     @Value("${efnews.detail.url}")
@@ -95,9 +96,7 @@ public class NewsDetailManager {
     private int missionPerTask;
 
     public List<String> getDetailList() {
-        synchronized (NewsHolder.getDetailList()) {
-            return NewsHolder.getDetailList();
-        }
+        return newsHolder.getDetailList();
     }
 
     /**
@@ -106,6 +105,8 @@ public class NewsDetailManager {
     @Scheduled(initialDelay = 10000, fixedRate = 30 * 60 * 1000)
     public void getNewsFromSite() {
         MessageHttpClient mhc = httpPool.getMhc();
+
+        List<String> tempDetailList = newsHolder.getTempDetailList();
 
         int taskCount = (endSeq - startSeq) / missionPerTask + 1;
 
@@ -181,11 +182,7 @@ public class NewsDetailManager {
 
             sortDetailList(tempDetailList);
 
-            synchronized (NewsHolder.getDetailList()) {
-                List<String> detailList = NewsHolder.getDetailList();
-                detailList.clear();
-                detailList.addAll(tempDetailList);
-            }
+            newsHolder.updateTempDetailListToRedis();
         });
     }
 

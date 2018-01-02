@@ -5,12 +5,14 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.wangshuai.efnews.manager.NewsDetailManager;
 import com.wangshuai.efnews.manager.NewsImageManager;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.concurrent.TimeUnit;
 
 /**
  * TODO
@@ -27,6 +29,9 @@ public class MainController {
 
     @Resource
     private NewsImageManager newsImageManager;
+
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     @RequestMapping("/")
     public String index(Model modelMap) {
@@ -92,6 +97,9 @@ public class MainController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("detail", json1);
         jsonObject.put("image", json2);
+
+        stringRedisTemplate.opsForValue().set("test", "测试");
+        stringRedisTemplate.expire("test", 60, TimeUnit.SECONDS);
 
         return jsonObject;
     }

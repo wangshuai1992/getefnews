@@ -35,11 +35,6 @@ public class NewsImageManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(NewsImageManager.class);
 
     /**
-     * image信息json列表
-     */
-    private final List<String> tempImageList = NewsHolder.getTempImageList();
-
-    /**
      * http操作
      */
     @Resource
@@ -50,6 +45,12 @@ public class NewsImageManager {
      */
     @Resource
     private Executor executor;
+
+    /**
+     * 列表存储操作
+     */
+    @Resource
+    private NewsHolder newsHolder;
 
     /**
      * URL
@@ -64,9 +65,7 @@ public class NewsImageManager {
     private int dayCount;
 
     public List<String> getImageList() {
-        synchronized (NewsHolder.getImageList()) {
-            return NewsHolder.getImageList();
-        }
+        return newsHolder.getImageList();
     }
 
     /**
@@ -76,6 +75,8 @@ public class NewsImageManager {
     @Scheduled(initialDelay = 10000, fixedRate = 30 * 60 * 1000)
     public void getImagesFromSite() {
         MessageHttpClient mhc = httpPool.getMhc();
+
+        List<String> tempImageList = newsHolder.getTempImageList();
 
         CountDownLatch countDownLatch = new CountDownLatch(dayCount);
 
@@ -144,11 +145,7 @@ public class NewsImageManager {
 
             sortImageList(tempImageList);
 
-            synchronized (NewsHolder.getImageList()) {
-                List<String> imageList = NewsHolder.getImageList();
-                imageList.clear();
-                imageList.addAll(tempImageList);
-            }
+            newsHolder.updateTempImageListToRedis();
         });
     }
 

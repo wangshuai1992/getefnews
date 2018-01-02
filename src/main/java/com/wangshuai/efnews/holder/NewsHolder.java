@@ -1,5 +1,10 @@
 package com.wangshuai.efnews.holder;
 
+import com.alibaba.fastjson.JSON;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,34 +16,77 @@ import java.util.List;
  * @version V1.0
  * @date 2017-12-30 00:51
  */
+@Component
 public class NewsHolder {
 
-    private static List<String> detailList = new LinkedList<>();
+    /**
+     * redis操作
+     */
+    @Resource
+    private RedisTemplate<String, String> redisTemplate;
 
-    private static List<String> tempDetailList = Collections.synchronizedList(new LinkedList<>());
+    /**
+     * detail_list在redis中的key
+     */
+    private static final String DETAIL_LIST_KEY = "detail_list";
 
-    private static List<String> imageList = new LinkedList<>();
+    /**
+     * image_list在redis中的key
+     */
+    private static final String IMAGE_LIST_KEY = "image_list";
 
-    private static List<String> tempImageList = Collections.synchronizedList(new LinkedList<>());
+    /**
+     * 内存中的临时detail_list
+     */
+    private List<String> tempDetailList = Collections.synchronizedList(new LinkedList<>());
 
-    private NewsHolder() {
+    /**
+     * 内存中的临时image_list
+     */
+    private List<String> tempImageList = Collections.synchronizedList(new LinkedList<>());
 
+    /**
+     * 从redis中获取detail_list
+     *
+     * @return
+     */
+    public List<String> getDetailList() {
+        String jsonstr = redisTemplate.opsForValue().get(DETAIL_LIST_KEY);
+        return JSON.parseArray(jsonstr, String.class);
     }
 
-    public static List<String> getDetailList() {
-        return detailList;
+    /**
+     * 从redis中获取image_list
+     *
+     * @return
+     */
+    public List<String> getImageList() {
+        String jsonstr = redisTemplate.opsForValue().get(IMAGE_LIST_KEY);
+        return JSON.parseArray(jsonstr, String.class);
     }
 
-    public static List<String> getImageList() {
-        return imageList;
-    }
-
-    public static List<String> getTempDetailList() {
+    public List<String> getTempDetailList() {
         return tempDetailList;
     }
 
-    public static List<String> getTempImageList() {
+    public List<String> getTempImageList() {
         return tempImageList;
+    }
+
+    /**
+     * 将临时list更新到redis
+     */
+    public void updateTempDetailListToRedis() {
+        String jsonStr = JSON.toJSONString(tempDetailList);
+        redisTemplate.opsForValue().set(DETAIL_LIST_KEY, jsonStr);
+    }
+
+    /**
+     * 将临时list更新到redis
+     */
+    public void updateTempImageListToRedis() {
+        String jsonStr = JSON.toJSONString(tempImageList);
+        redisTemplate.opsForValue().set(IMAGE_LIST_KEY, jsonStr);
     }
 
 }
