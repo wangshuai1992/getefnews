@@ -78,7 +78,7 @@ public class NewsImageManager {
 
         List<String> tempImageList = newsHolder.getTempImageList();
 
-        CountDownLatch countDownLatch = new CountDownLatch(dayCount);
+        CountDownLatch countDownLatch = new CountDownLatch(dayCount * 2);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
@@ -92,6 +92,7 @@ public class NewsImageManager {
             Date date = calendar.getTime();
             String dateStr = sdf.format(date);
 
+            //中文
             executor.execute(() -> {
                 LOGGER.info(" ===> image task started === dateStr : {}", dateStr);
 
@@ -114,6 +115,46 @@ public class NewsImageManager {
                             jsonObject.put("fileName", imageFileName);
                             jsonObject.put("url", url);
                             jsonObject.put("date", dateStr);
+                            jsonObject.put("language", "zh_cn");
+
+                            tempImageList.add(jsonObject.toJSONString());
+                            LOGGER.info("image add ===> {}", jsonObject.toJSONString());
+                        }
+                    }
+
+                    if (!hasImage) {
+                        //结束递增文件名序号的循环
+                        break;
+                    }
+                }
+                countDownLatch.countDown();
+
+            });
+
+            //英语
+            executor.execute(() -> {
+                LOGGER.info(" ===> image task started === dateStr : {}", dateStr);
+
+                for (int index = 1; index < 10; index++) {
+                    StringBuilder imageFileName = new StringBuilder();
+                    imageFileName.append("news_").append(dateStr).append("_0").append(index).append(".jpg");
+
+                    String url = imageUrl + imageFileName;
+                    Map<String, String> headers = new HashMap<>();
+                    headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0");
+
+                    Header[] respHeaders = mhc.doGetResponseHeader(url, headers, "utf-8");
+
+                    boolean hasImage = false;
+                    for (Header h : respHeaders) {
+                        if ("Content-Type".equals(h.getName()) && "image/jpeg".equals(h.getValue())) {
+                            hasImage = true;
+
+                            JSONObject jsonObject = new JSONObject();
+                            jsonObject.put("fileName", imageFileName);
+                            jsonObject.put("url", url);
+                            jsonObject.put("date", dateStr);
+                            jsonObject.put("language", "en_us");
 
                             tempImageList.add(jsonObject.toJSONString());
                             LOGGER.info("image add ===> {}", jsonObject.toJSONString());

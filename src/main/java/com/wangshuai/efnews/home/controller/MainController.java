@@ -8,11 +8,11 @@ import com.wangshuai.efnews.manager.NewsImageManager;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.concurrent.TimeUnit;
 
 /**
  * TODO
@@ -52,7 +52,11 @@ public class MainController {
 
     @RequestMapping("/getTableData")
     @ResponseBody
-    public Object getTableData() {
+    public Object getTableData(String language) {
+        if(StringUtils.isEmpty(language)) {
+            language = "zh_cn";
+        }
+
         JSONArray details = (JSONArray) JSONArray.toJSON(newsDetailManager.getDetailList());
         JSONArray images = (JSONArray) JSONArray.toJSON(newsImageManager.getImageList());
 
@@ -60,6 +64,10 @@ public class MainController {
 
         for (Object o : images) {
             JSONObject image = JSON.parseObject((String) o);
+
+            if(!language.equals(image.getString("language"))) {
+                continue;
+            }
 
             String date = image.getString("date");
             String imgUrl = image.getString("url");
@@ -78,30 +86,6 @@ public class MainController {
         }
 
         return datas;
-    }
-
-    @RequestMapping("/test")
-    @ResponseBody
-    public Object test() {
-        for (String detail : newsDetailManager.getDetailList()) {
-            System.out.println(detail);
-        }
-
-        for (String image : newsImageManager.getImageList()) {
-            System.out.println(image);
-        }
-
-        JSONArray json1 = (JSONArray) JSONArray.toJSON(newsDetailManager.getDetailList());
-        JSONArray json2 = (JSONArray) JSONArray.toJSON(newsImageManager.getImageList());
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("detail", json1);
-        jsonObject.put("image", json2);
-
-        stringRedisTemplate.opsForValue().set("test", "测试");
-        stringRedisTemplate.expire("test", 60, TimeUnit.SECONDS);
-
-        return jsonObject;
     }
 
     private JSONObject searchDetailByImageUrl(String imageUrl, JSONArray details) {

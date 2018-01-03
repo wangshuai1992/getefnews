@@ -2,25 +2,14 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111726525-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-
-        gtag('js', new Date());
-
-        gtag('config', 'UA-111726525-1');
-    </script>
-
     <meta name="viewport"
           content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 
     <title>无尽的边界活动预告efnews</title>
+
+    <meta name="description" content="无尽的边界活动预告efnews event"/>
+    <meta name="keywords" content="无尽的边界活动预告efnews event"/>
 
     <meta content="no-cache" http-equiv="cache-control">
     <meta content="no-cache" http-equiv="pragma">
@@ -300,90 +289,47 @@
             border-radius: 0 0 6px 0;
         }
 
-        /*----------------------*/
-
-        .zebra td, .zebra th {
-            padding: 10px;
-            border-bottom: 1px solid #f2f2f2;
+        .btn {
+            color: blue;
+            background-color: #FFFFFF;
+            border: 0px none;
+            font-family: 'trebuchet MS', 'Lucida sans', Arial;
+            font-size: 15px;
+            text-decoration: underline;
         }
 
-        .zebra tbody tr:nth-child(even) {
-            background: #f5f5f5;
-            -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
-            -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
-            box-shadow: 0 1px 0 rgba(255, 255, 255, .8) inset;
+        .btn:hover {
+            color: red;
+            border: none;
+            cursor: hand;
+            cursor: pointer;
+            text-decoration: underline;
         }
 
-        .zebra th {
-            text-align: left;
-            text-shadow: 0 1px 0 rgba(255, 255, 255, .5);
-            border-bottom: 1px solid #ccc;
-            background-color: #eee;
-            background-image: -webkit-gradient(linear, left top, left bottom, from(#f5f5f5), to(#eee));
-            background-image: -webkit-linear-gradient(top, #f5f5f5, #eee);
-            background-image: -moz-linear-gradient(top, #f5f5f5, #eee);
-            background-image: -ms-linear-gradient(top, #f5f5f5, #eee);
-            background-image: -o-linear-gradient(top, #f5f5f5, #eee);
-            background-image: linear-gradient(top, #f5f5f5, #eee);
+        .btn:focus {
+            outline: none;
         }
-
-        .zebra th:first-child {
-            -moz-border-radius: 6px 0 0 0;
-            -webkit-border-radius: 6px 0 0 0;
-            border-radius: 6px 0 0 0;
-        }
-
-        .zebra th:last-child {
-            -moz-border-radius: 0 6px 0 0;
-            -webkit-border-radius: 0 6px 0 0;
-            border-radius: 0 6px 0 0;
-        }
-
-        .zebra th:only-child {
-            -moz-border-radius: 6px 6px 0 0;
-            -webkit-border-radius: 6px 6px 0 0;
-            border-radius: 6px 6px 0 0;
-        }
-
-        .zebra tfoot td {
-            border-bottom: 0;
-            border-top: 1px solid #fff;
-            background-color: #f1f1f1;
-        }
-
-        .zebra tfoot td:first-child {
-            -moz-border-radius: 0 0 0 6px;
-            -webkit-border-radius: 0 0 0 6px;
-            border-radius: 0 0 0 6px;
-        }
-
-        .zebra tfoot td:last-child {
-            -moz-border-radius: 0 0 6px 0;
-            -webkit-border-radius: 0 0 6px 0;
-            border-radius: 0 0 6px 0;
-        }
-
-        .zebra tfoot td:only-child {
-            -moz-border-radius: 0 0 6px 6px;
-            -webkit-border-radius: 0 0 6px 6px
-            border-radius: 0 0 6px 6px
-        }
-
 
     </style>
-    <script src="/js/jquery-3.2.1.js" type="text/javascript"></script>
+    <script src="/js/lib/jquery-3.2.1.js" type="text/javascript"></script>
+    <script src="/js/main.js" type="text/javascript"></script>
+    <script src="/js/language.js" type="text/javascript"></script>
 </head>
 
 <body>
 
-<h2>无尽的边界 活动预告（欢迎提BUG~ 有时更新代码会重启服务器，如果偶尔访问不了可以稍后再试）</h2>
-<h3>tips: 一般来说活动图片会比活动文案先出来，所以比较新的活动有时候会显示没有活动详情，这个是正常的，因为官方也没出来~</h3>
+<h2 id="title-1">无尽的边界 活动预告（contact me by : wang409322824@gmail.com。有时更新代码会重启服务器，如果偶尔访问不了可以稍后再试）</h2>
+<h3 id="title-2">tips: 一般来说活动图片会比活动文案先出来，所以比较新的活动有时候会显示没有活动详情，这个是正常的，因为官方也没出来~</h3>
 <div class="wrap">
     <table id="container-table" class="bordered">
         <thead>
-        <td>时间</td>
-        <td>活动图片</td>
-        <td>活动详情</td>
+        <#-- <td id="thead-1">时间</td> -->
+        <td>
+            <input type="button" id="toChinese" value="中文" class="btn">&nbsp;|&nbsp;
+            <input type="button" id="toEnglish" value="English" class="btn">
+        </td>
+        <td id="thead-2">活动图片</td>
+        <td id="thead-3">活动详情</td>
         </thead>
         <tbody id="container-tbody">
         <#-- <tr>
@@ -414,37 +360,37 @@
 <script type="text/javascript">
     var datas;
 
+    if (lanType != "zh_cn") {
+        loadHtmlLanguage();
+    }
+
     $(function () {
         $.ajax({
             url: "/getTableData",
-            async: false,
+            data: {"language": lanType},
+            async: true,
             type: "POST",
             success: function (result) {
                 if (!result) {
-                    alert("服务器繁忙，请稍后再试");
+                    alert(lanVal['server_busy']);
                 } else {
                     datas = result;
                     buildTable();
                 }
             }
         });
-    });
 
-    Date.prototype.format = function (fmt) {
-        var o = {
-            "M+": this.getMonth() + 1, //月份
-            "d+": this.getDate(), //日
-            "h+": this.getHours(), //小时
-            "m+": this.getMinutes(), //分
-            "s+": this.getSeconds(), //秒
-            "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-            "S": this.getMilliseconds() //毫秒
-        };
-        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-        for (var k in o)
-            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-        return fmt;
-    }
+        $("#toChinese").click(function() {
+            localStorage.lanType = "zh_cn";
+            location.reload();
+        });
+
+        $("#toEnglish").click(function() {
+            localStorage.lanType = "en_us";
+            location.reload();
+        });
+
+    });
 
     function buildTable() {
         $("#container-tbody").empty();
@@ -464,7 +410,7 @@
             var detailTd = $("<td><a href='" + detailUrl + "' target='new_window'>" + title + "</a></td>");
 
             if (!title) {
-                detailTd = $("<td>无</td>");
+                detailTd = $("<td>" + lanVal['no_detail_now'] + "</td>");
             }
 
             tr.append(dateTd).append(imgTd).append(detailTd);

@@ -128,7 +128,7 @@ public class NewsDetailManager {
 
                     String html = mhc.doGet(url, headers, "utf-8");
 
-                    if (html.contains("无尽的边界") || html.contains("复活")) {
+                    if (html.contains("无尽的边界") || html.contains("复活") || html.contains("Thank you.")) {
                         JSONObject json = new JSONObject();
 
                         String title = "";
