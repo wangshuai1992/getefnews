@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangshuai.efnews.dal.mapper.RequestLogMapper">
+    <resultMap id="baseResult" type="com.wangshuai.efnews.dal.dataobject.RequestLogDO">
+        <result property="id" column="id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifyTime" column="modify_time"/>
+        <result property="url" column="url"/>
+        <result property="httpMethod" column="http_method"/>
+        <result property="ip" column="ip"/>
+        <result property="area" column="area"/>
+        <result property="classMethod" column="class_method"/>
+        <result property="args" column="args"/>
+        <result property="response" column="response"/>
+        <result property="spendTime" column="spend_time"/>
+        <result property="isDeleted" column="is_deleted"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="column_List">
+        id,
+        create_time,
+        modify_time,
+        is_deleted,
+        remark,
+        url,
+        http_method,
+        ip,
+        area,
+        class_method,
+        args,
+        response,
+        spend_time
+    </sql>
+
+    <!--table insert-->
+    <insert id="insert" parameterType="requestLogDO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO request_log (
+        <include refid="column_List"/>
+        ) VALUES (
+        #{id},
+        now(),
+        now(),
+        0,
+        #{remark},
+        #{url},
+        #{httpMethod},
+        #{ip},
+        #{area},
+        #{classMethod},
+        #{args},
+        #{response},
+        #{spendTime}
+        )
+    </insert>
+
+    <insert id="batchInsert" parameterType="list" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO request_log (
+        <include refid="column_List"/>
+        ) VALUES
+        <foreach collection="list" item="log" separator=",">
+            (
+            #{log.id},
+            now(),
+            now(),
+            0,
+            #{log.remark},
+            #{log.url},
+            #{log.httpMethod},
+            #{log.ip},
+            #{log.area},
+            #{log.classMethod},
+            #{log.args},
+            #{log.response},
+            #{log.spendTime}
+            )
+        </foreach>
+    </insert>
+
+    <!--find_by_id-->
+    <select id="findById" resultMap="baseResult" parameterType="java.lang.Long">
+        SELECT
+        <include refid="column_List"/>
+        FROM request_log
+        WHERE is_deleted = 0
+        AND id = #{id}
+    </select>
+
+    <sql id="query_condition">
+        <where>
+            <if test="id != null and id != '' ">
+                AND id = #{id}
+            </if>
+            <if test="isDeleted != null ">
+                AND is_deleted = #{isDeleted}
+            </if>
+            <if test="url != null and url != '' ">
+                AND url = #{url}
+            </if>
+            <if test="httpMethod != null and httpMethod != '' ">
+                AND http_method = #{httpMethod}
+            </if>
+            <if test="ip != null and ip != '' ">
+                AND ip = #{ip}
+            </if>
+            <if test="area != null and area != '' ">
+                AND area = #{area}
+            </if>
+            <if test="classMethod != null and classMethod != '' ">
+                AND class_method = #{classMethod}
+            </if>
+            <if test="args != null and args != '' ">
+                AND args = #{args}
+            </if>
+            <if test="response != null and response != '' ">
+                AND response = #{response}
+            </if>
+            <if test="spendTime != null and spendTime != '' ">
+                AND spend_time = #{spendTime}
+            </if>
+        </where>
+    </sql>
+
+    <select id="pageCount" parameterType="requestLogQuery" resultType="java.lang.Integer">
+        SELECT count(*) FROM request_log
+        <include refid="query_condition"/>
+    </select>
+
+    <select id="pageQuery" resultMap="baseResult" parameterType="requestLogQuery">
+        SELECT
+        <include refid="column_List"/>
+        FROM request_log
+        <include refid="query_condition"/>
+        <![CDATA[
+			ORDER BY id DESC
+		]]>
+        LIMIT #{startPos},#{pageSize}
+    </select>
+
+    <select id="fullQuery" resultMap="baseResult" parameterType="requestLogQuery">
+        SELECT
+        <include refid="column_List"/>
+        FROM request_log
+        <include refid="query_condition"/>
+    </select>
+
+</mapper>

@@ -1,4 +1,4 @@
-package com.wangshuai.efnews.utils;
+package com.wangshuai.efnews.common.utils;
 
 /**
  * 中文判断工具

@@ -1,4 +1,4 @@
-package com.wangshuai.efnews.config;
+package com.wangshuai.efnews.common.config;
 
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.annotation.Value;

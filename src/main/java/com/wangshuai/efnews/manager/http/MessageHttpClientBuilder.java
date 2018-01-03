@@ -1,4 +1,4 @@
-package com.wangshuai.efnews.http;
+package com.wangshuai.efnews.manager.http;
 
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.HttpClientBuilder;

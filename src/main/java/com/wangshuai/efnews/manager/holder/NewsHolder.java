@@ -1,4 +1,4 @@
-package com.wangshuai.efnews.holder;
+package com.wangshuai.efnews.manager.holder;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.data.redis.core.RedisTemplate;

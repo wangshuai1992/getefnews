@@ -1,4 +1,4 @@
-package com.wangshuai.efnews.http;
+package com.wangshuai.efnews.manager.http;
 
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.springframework.beans.factory.annotation.Value;

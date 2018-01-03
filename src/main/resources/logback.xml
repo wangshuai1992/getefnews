@@ -193,8 +193,6 @@
         <appender-ref ref="SQL" />
     </logger>
 
-    <logger name="com.wedoctor.health.card.cloud.monitor.dal" level="DEBUG"/>
-
     <!-- 定义cache 日志 -->
     <logger name="org.springframework.data.redis" level="${efnews.loggingLevel}" >
         <appender-ref ref="CACHE" />
@@ -213,6 +211,10 @@
     <logger name="org.apache" level="INFO"/>
     <logger name="org.springframework" level="INFO"/>
     <logger name="org.springframework.web" level="INFO"/>
+    <logger name="org.springframework.data.redis.core" level="INFO"/>
+    <logger name="org.mybatis.spring" level="INFO" />
+    <logger name="com.wangshuai.efnews.dal" level="INFO" />
+    <logger name="freemarker.cache" level="INFO" />
 
     <root level="${efnews.loggingLevel}">
         <appender-ref ref="ASYNCFile"/>

@@ -1,4 +1,4 @@
-package com.wangshuai.efnews.json;
+package com.wangshuai.efnews.home.json;
 
 import java.util.List;
 

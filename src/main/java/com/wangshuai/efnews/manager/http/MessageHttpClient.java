@@ -1,4 +1,4 @@
-package com.wangshuai.efnews.http;
+package com.wangshuai.efnews.manager.http;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;

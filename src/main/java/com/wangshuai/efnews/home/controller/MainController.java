@@ -1,4 +1,4 @@
-package com.wangshuai.efnews.controller;
+package com.wangshuai.efnews.home.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -35,7 +35,7 @@ public class MainController {
 
     @RequestMapping("/")
     public String index(Model modelMap) {
-        return "index";
+        return "main";
     }
 
     @RequestMapping("/getDetailList")
