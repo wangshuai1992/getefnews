@@ -106,13 +106,13 @@
 
         /* news-img */
         .news-img {
-            padding: 1em;
+            padding: 0.5em;
             border-bottom: 1px solid #A4A4AC;
         }
 
         /* news-view */
         .news-view {
-            padding: 1em;
+            padding: 0.5em;
             color: #000000;
             background-color: #EBEBED;
         }
@@ -150,7 +150,7 @@
             padding-bottom: 1em;
         }
 
-        a {
+        a.detail {
             display: inline-block;
             position: relative;
             padding-left: 6px;
@@ -160,11 +160,11 @@
             text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9);
         }
 
-        a:hover {
+        a.detail:hover {
             color: #3C9CE7;
         }
 
-        a:before {
+        a.detail:before {
             content: "\25BA";
             font-size: 80%;
             display: inline-block;
@@ -172,7 +172,7 @@
             pointer-events: none;
         }
 
-        a:hover:before {
+        a.detail:hover:before {
             color: #F2BF97;
         }
 
@@ -204,7 +204,7 @@
             width: 85%;
             margin: 40px auto;
             font-family: 'trebuchet MS', 'Lucida sans', Arial;
-            font-size: 14px;
+            font-size: 0.65em;
             color: #444;
         }
 
@@ -236,7 +236,7 @@
         .bordered td, .bordered th {
             border-left: 1px solid #ccc;
             border-top: 1px solid #ccc;
-            padding: 10px;
+            padding: 0.5em;
             text-align: left;
         }
 
@@ -311,49 +311,51 @@
         }
 
     </style>
-    <script src="/js/lib/jquery-3.2.1.js" type="text/javascript"></script>
+    <link href="/lib/css/zoom.css" rel="stylesheet">
+
+    <script src="/lib/js/jquery-3.2.1.js" type="text/javascript"></script>
     <script src="/js/main.js" type="text/javascript"></script>
+    <script src="/lib/js/zoom.min.js"></script>
     <script src="/js/language.js" type="text/javascript"></script>
 </head>
 
 <body>
+    <h2 id="title-1">无尽的边界 活动预告（contact me by : wang409322824@gmail.com。有时更新代码会重启服务器，如果偶尔访问不了可以稍后再试）</h2>
+    <h3 id="title-2">tips: 一般来说活动图片会比活动文案先出来，所以比较新的活动有时候会显示没有活动详情，这个是正常的，因为官方也没出来~</h3>
+    <div class="wrap">
+        <table id="container-table" class="bordered">
+            <thead>
+                <#-- <td id="thead-1">时间</td> -->
+                <td>
+                    <input type="button" id="toChinese" value="中文" class="btn">&nbsp;|&nbsp;
+                    <input type="button" id="toEnglish" value="English" class="btn">
+                </td>
+                <td id="thead-2">活动图片</td>
+                <td id="thead-3">活动详情</td>
+            </thead>
+            <tbody id="container-tbody">
+            <#-- <tr>
+                <td>20171231</td>
+                <td>
+                    <img src="http://ef-image.s3-website-us-west-1.amazonaws.com/news_20171231_02.jpg">
+                </td>
+                <td>
+                    <a href="getNewsDetailMultiLang?seq=7473&domain=A&lang=EN">
+                        文案
+                    </a>
+                </td>
+            </tr> -->
+            </tbody>
+        </table>
 
-<h2 id="title-1">无尽的边界 活动预告（contact me by : wang409322824@gmail.com。有时更新代码会重启服务器，如果偶尔访问不了可以稍后再试）</h2>
-<h3 id="title-2">tips: 一般来说活动图片会比活动文案先出来，所以比较新的活动有时候会显示没有活动详情，这个是正常的，因为官方也没出来~</h3>
-<div class="wrap">
-    <table id="container-table" class="bordered">
-        <thead>
-        <#-- <td id="thead-1">时间</td> -->
-        <td>
-            <input type="button" id="toChinese" value="中文" class="btn">&nbsp;|&nbsp;
-            <input type="button" id="toEnglish" value="English" class="btn">
-        </td>
-        <td id="thead-2">活动图片</td>
-        <td id="thead-3">活动详情</td>
-        </thead>
-        <tbody id="container-tbody">
-        <#-- <tr>
-            <td>20171231</td>
-            <td>
-                <img src="http://ef-image.s3-website-us-west-1.amazonaws.com/news_20171231_02.jpg">
-            </td>
-            <td>
-                <a href="getNewsDetailMultiLang?seq=7473&domain=A&lang=EN">
-                    文案
-                </a>
-            </td>
-        </tr> -->
-        </tbody>
-    </table>
+        <!-- bottom : top -->
+        <div class="bottom">
+            <a href="#">
+                <div id="top">▲ TOP</div>
+            </a>
+        </div>
 
-    <!-- bottom : top -->
-    <div class="bottom">
-        <a href="#">
-            <div id="top">▲ TOP</div>
-        </a>
-    </div>
-
-</div><!-- //wrap -->
+    </div><!-- //wrap -->
 
 </body>
 
@@ -380,12 +382,12 @@
             }
         });
 
-        $("#toChinese").click(function() {
+        $("#toChinese").click(function () {
             localStorage.lanType = "zh_cn";
             location.reload();
         });
 
-        $("#toEnglish").click(function() {
+        $("#toEnglish").click(function () {
             localStorage.lanType = "en_us";
             location.reload();
         });
@@ -406,8 +408,8 @@
 
             var tr = $("<tr></tr>");
             var dateTd = $("<td>" + dateStr + "</td>");
-            var imgTd = $("<td><img src='" + imgUrl + "'></td>");
-            var detailTd = $("<td><a href='" + detailUrl + "' target='new_window'>" + title + "</a></td>");
+            var imgTd = $("<td><img src='" + imgUrl + "' data-action='zoom'></td>");
+            var detailTd = $("<td><a href='" + detailUrl + "' target='new_window' class='detail'>" + title + "</a></td>");
 
             if (!title) {
                 detailTd = $("<td>" + lanVal['no_detail_now'] + "</td>");
