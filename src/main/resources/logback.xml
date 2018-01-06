@@ -215,6 +215,8 @@
     <logger name="org.mybatis.spring" level="INFO" />
     <logger name="com.wangshuai.efnews.dal" level="INFO" />
     <logger name="freemarker.cache" level="INFO" />
+    <logger name="org.eclipse.jetty" level="INFO" />
+    <logger name="com.alibaba.dubbo" level="INFO" />
 
     <root level="${efnews.loggingLevel}">
         <appender-ref ref="ASYNCFile"/>

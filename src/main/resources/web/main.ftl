@@ -177,31 +177,31 @@
         }
 
         h2 {
-            width: 97.5%;
-            font-size: 18px;
+            width: 95%;
+            font-size: 1.4em;
             font-weight: bold;
             background-color: #CEEEFA;
             border-bottom: 1px solid;
-            padding: 5px 15px;
+            padding: 0.4em 0.1em 0.4em 0.7em;
             border-left: 8px solid;
             margin: 18px 0px 18px 0px;
             overflow: hidden;
         }
 
         h3 {
-            width: 97.5%;
-            font-size: 14px;
+            width: 95%;
+            font-size: 1.1em;
             font-weight: bold;
             background-color: #F2BF97;
             border-bottom: 1px solid;
-            padding: 4px 15px;
+            padding: 0.35em 0.1em 0.35em 0.7em;
             border-left: 8px solid;
             margin: 18px 0px 18px 0px;
             overflow: hidden;
         }
 
         body {
-            width: 85%;
+            width: 95%;
             margin: 40px auto;
             font-family: 'trebuchet MS', 'Lucida sans', Arial;
             font-size: 0.65em;

@@ -96,38 +96,47 @@ public class NewsImageManager {
             executor.execute(() -> {
                 LOGGER.info(" ===> image task started === dateStr : {}", dateStr);
 
-                for (int index = 1; index < 10; index++) {
-                    StringBuilder imageFileName = new StringBuilder();
-                    imageFileName.append("news_").append(dateStr).append("_0").append(index).append("_1.jpg");
+                try {
+                    for (int index = 1; index < 10; index++) {
+                        StringBuilder imageFileName = new StringBuilder();
+                        imageFileName.append("news_").append(dateStr).append("_0").append(index).append("_1.jpg");
 
-                    String url = imageUrl + imageFileName;
-                    Map<String, String> headers = new HashMap<>();
-                    headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0");
+                        String url = imageUrl + imageFileName;
+                        Map<String, String> headers = new HashMap<>();
+                        headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0");
 
-                    Header[] respHeaders = mhc.doGetResponseHeader(url, headers, "utf-8");
+                        try {
+                            Header[] respHeaders = mhc.doGetResponseHeader(url, headers, "utf-8");
 
-                    boolean hasImage = false;
-                    for (Header h : respHeaders) {
-                        if ("Content-Type".equals(h.getName()) && "image/jpeg".equals(h.getValue())) {
-                            hasImage = true;
+                            boolean hasImage = false;
+                            for (Header h : respHeaders) {
+                                if ("Content-Type".equals(h.getName()) && "image/jpeg".equals(h.getValue())) {
+                                    hasImage = true;
 
-                            JSONObject jsonObject = new JSONObject();
-                            jsonObject.put("fileName", imageFileName);
-                            jsonObject.put("url", url);
-                            jsonObject.put("date", dateStr);
-                            jsonObject.put("language", "zh_cn");
+                                    JSONObject jsonObject = new JSONObject();
+                                    jsonObject.put("fileName", imageFileName);
+                                    jsonObject.put("url", url);
+                                    jsonObject.put("date", dateStr);
+                                    jsonObject.put("language", "zh_cn");
 
-                            tempImageList.add(jsonObject.toJSONString());
-                            LOGGER.info("image add ===> {}", jsonObject.toJSONString());
+                                    tempImageList.add(jsonObject.toJSONString());
+                                    LOGGER.info("image add ===> {}", jsonObject.toJSONString());
+                                }
+                            }
+
+                            if (!hasImage) {
+                                //结束递增文件名序号的循环
+                                break;
+                            }
+                        } catch (Exception e) {
+                            LOGGER.error("image http请求出错 === dateStr : " + dateStr, e);
                         }
                     }
-
-                    if (!hasImage) {
-                        //结束递增文件名序号的循环
-                        break;
-                    }
+                } catch (Exception e) {
+                    LOGGER.error("image task 执行出错", e);
+                } finally {
+                    countDownLatch.countDown();
                 }
-                countDownLatch.countDown();
 
             });
 
@@ -135,39 +144,47 @@ public class NewsImageManager {
             executor.execute(() -> {
                 LOGGER.info(" ===> image task started === dateStr : {}", dateStr);
 
-                for (int index = 1; index < 10; index++) {
-                    StringBuilder imageFileName = new StringBuilder();
-                    imageFileName.append("news_").append(dateStr).append("_0").append(index).append(".jpg");
+                try{
+                    for (int index = 1; index < 10; index++) {
+                        StringBuilder imageFileName = new StringBuilder();
+                        imageFileName.append("news_").append(dateStr).append("_0").append(index).append(".jpg");
 
-                    String url = imageUrl + imageFileName;
-                    Map<String, String> headers = new HashMap<>();
-                    headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0");
+                        String url = imageUrl + imageFileName;
+                        Map<String, String> headers = new HashMap<>();
+                        headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0");
 
-                    Header[] respHeaders = mhc.doGetResponseHeader(url, headers, "utf-8");
+                        try {
+                            Header[] respHeaders = mhc.doGetResponseHeader(url, headers, "utf-8");
 
-                    boolean hasImage = false;
-                    for (Header h : respHeaders) {
-                        if ("Content-Type".equals(h.getName()) && "image/jpeg".equals(h.getValue())) {
-                            hasImage = true;
+                            boolean hasImage = false;
+                            for (Header h : respHeaders) {
+                                if ("Content-Type".equals(h.getName()) && "image/jpeg".equals(h.getValue())) {
+                                    hasImage = true;
 
-                            JSONObject jsonObject = new JSONObject();
-                            jsonObject.put("fileName", imageFileName);
-                            jsonObject.put("url", url);
-                            jsonObject.put("date", dateStr);
-                            jsonObject.put("language", "en_us");
+                                    JSONObject jsonObject = new JSONObject();
+                                    jsonObject.put("fileName", imageFileName);
+                                    jsonObject.put("url", url);
+                                    jsonObject.put("date", dateStr);
+                                    jsonObject.put("language", "en_us");
 
-                            tempImageList.add(jsonObject.toJSONString());
-                            LOGGER.info("image add ===> {}", jsonObject.toJSONString());
+                                    tempImageList.add(jsonObject.toJSONString());
+                                    LOGGER.info("image add ===> {}", jsonObject.toJSONString());
+                                }
+                            }
+
+                            if (!hasImage) {
+                                //结束递增文件名序号的循环
+                                break;
+                            }
+                        } catch (Exception e) {
+                            LOGGER.error("image http请求出错 === dateStr : " + dateStr, e);
                         }
                     }
-
-                    if (!hasImage) {
-                        //结束递增文件名序号的循环
-                        break;
-                    }
+                } catch (Exception e) {
+                    LOGGER.error("image task 执行出错", e);
+                } finally {
+                    countDownLatch.countDown();
                 }
-                countDownLatch.countDown();
-
             });
 
             calendar.add(Calendar.DATE, 1);
@@ -187,6 +204,7 @@ public class NewsImageManager {
             sortImageList(tempImageList);
 
             newsHolder.updateTempImageListToRedis();
+            tempImageList.clear();
         });
     }
 

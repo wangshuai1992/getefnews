@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.wangshuai.efnews.manager.NewsDetailManager;
 import com.wangshuai.efnews.manager.NewsImageManager;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -29,9 +28,6 @@ public class MainController {
 
     @Resource
     private NewsImageManager newsImageManager;
-
-    @Resource
-    private StringRedisTemplate stringRedisTemplate;
 
     @RequestMapping("/")
     public String index(Model modelMap) {

@@ -29,7 +29,7 @@ public class HttpPool {
 
     @PostConstruct
     public void init() {
-        CloseableHttpClient httpClient = MessageHttpClientBuilder.custom().timeout(999999).pool(500, 50).build();
+        CloseableHttpClient httpClient = MessageHttpClientBuilder.custom().timeout(60000).pool(500, 50).build();
         mhc = new MessageHttpClient(httpClient);
     }
 

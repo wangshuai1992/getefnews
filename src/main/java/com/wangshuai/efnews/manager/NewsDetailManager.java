@@ -121,50 +121,59 @@ public class NewsDetailManager {
 
             executor.execute(() -> {
                 LOGGER.info(" ===> detail task started === {} - {}", tempStart, end - 1);
-                for (int i = tempStart; i < end; i++) {
-                    String url = detailUrl + i;
-                    Map<String, String> headers = new HashMap<>();
-                    headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0");
+                try {
+                    for (int i = tempStart; i < end; i++) {
+                        String url = detailUrl + i;
+                        Map<String, String> headers = new HashMap<>();
+                        headers.put("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:57.0) Gecko/20100101 Firefox/57.0");
 
-                    String html = mhc.doGet(url, headers, "utf-8");
+                        try {
+                            String html = mhc.doGet(url, headers, "utf-8");
 
-                    if (html.contains("无尽的边界") || html.contains("复活") || html.contains("Thank you.")) {
-                        JSONObject json = new JSONObject();
+                            if (html.contains("无尽的边界") || html.contains("复活") || html.contains("Thank you.")) {
+                                JSONObject json = new JSONObject();
 
-                        String title = "";
-                        String date = "";
-                        String imgUrl = "";
+                                String title = "";
+                                String date = "";
+                                String imgUrl = "";
 
-                        Matcher matcher = titlePattern.matcher(html);
-                        if (matcher.find()) {
-                            title = html.substring(matcher.start(), matcher.end())
-                                    .replace("<span id=\"news-title\"><a href=\"#\">", "")
-                                    .replace("</a></span>", "");
+                                Matcher matcher = titlePattern.matcher(html);
+                                if (matcher.find()) {
+                                    title = html.substring(matcher.start(), matcher.end())
+                                            .replace("<span id=\"news-title\"><a href=\"#\">", "")
+                                            .replace("</a></span>", "");
+                                }
+
+                                matcher = datePattern.matcher(html);
+                                if (matcher.find()) {
+                                    date = html.substring(matcher.start(), matcher.end());
+                                }
+
+                                matcher = imagePattern.matcher(html);
+                                if (matcher.find()) {
+                                    imgUrl = html.substring(matcher.start(), matcher.end())
+                                            .replace("<img src=\"", "")
+                                            .replace("\">", "");
+                                }
+
+                                json.put("title", title);
+                                json.put("date", date.replaceAll("-", ""));
+                                json.put("url", url);
+                                json.put("imgUrl", imgUrl);
+
+                                String str = json.toJSONString();
+                                tempDetailList.add(str);
+                                LOGGER.info("detail add ===> {}", str);
+                            }
+                        } catch (Exception e) {
+                            LOGGER.error("detail http请求出错 === " + tempStart + " - " + end, e);
                         }
-
-                        matcher = datePattern.matcher(html);
-                        if (matcher.find()) {
-                            date = html.substring(matcher.start(), matcher.end());
-                        }
-
-                        matcher = imagePattern.matcher(html);
-                        if (matcher.find()) {
-                            imgUrl = html.substring(matcher.start(), matcher.end())
-                                    .replace("<img src=\"", "")
-                                    .replace("\">", "");
-                        }
-
-                        json.put("title", title);
-                        json.put("date", date.replaceAll("-", ""));
-                        json.put("url", url);
-                        json.put("imgUrl", imgUrl);
-
-                        String str = json.toJSONString();
-                        tempDetailList.add(str);
-                        LOGGER.info("detail add ===> {}", str);
                     }
+                } catch (Exception e) {
+                    LOGGER.error("detail task 执行出错", e);
+                } finally {
+                    countDownLatch.countDown();
                 }
-                countDownLatch.countDown();
             });
             index += missionPerTask;
         }
@@ -183,6 +192,7 @@ public class NewsDetailManager {
             sortDetailList(tempDetailList);
 
             newsHolder.updateTempDetailListToRedis();
+            tempDetailList.clear();
         });
     }
 
