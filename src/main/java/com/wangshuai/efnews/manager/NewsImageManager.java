@@ -9,7 +9,6 @@ import org.apache.http.Header;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -72,7 +71,7 @@ public class NewsImageManager {
      * 定时获取图片信息
      * news_20180101_01_1.jpg
      */
-    @Scheduled(initialDelay = 10000, fixedRate = 30 * 60 * 1000)
+//    @Scheduled(initialDelay = 10000, fixedRate = 30 * 60 * 1000)
     public void getImagesFromSite() {
         MessageHttpClient mhc = httpPool.getMhc();
 

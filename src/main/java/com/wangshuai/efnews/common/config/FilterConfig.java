@@ -5,7 +5,6 @@ import com.wangshuai.sso.client.filter.SsoFilter;
 import com.wangshuai.sso.share.service.AuthenticationRpcService;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 import javax.annotation.Resource;
@@ -17,7 +16,7 @@ import javax.annotation.Resource;
  * @version V1.0
  * @date 2018-01-07 22:15
  */
-@Configuration
+//@Configuration
 public class FilterConfig {
 
     @Resource

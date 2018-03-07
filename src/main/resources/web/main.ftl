@@ -190,7 +190,7 @@
 
         h3 {
             width: 95%;
-            font-size: 1.1em;
+            font-size: 1.3em;
             font-weight: bold;
             background-color: #F2BF97;
             border-bottom: 1px solid;
@@ -320,21 +320,21 @@
 </head>
 
 <body>
-    <h2 id="title-1">无尽的边界 活动预告（contact me by : wang409322824@gmail.com。有时更新代码会重启服务器，如果偶尔访问不了可以稍后再试）</h2>
-    <h3 id="title-2">tips: 一般来说活动图片会比活动文案先出来，所以比较新的活动有时候会显示没有活动详情，这个是正常的，因为官方也没出来~</h3>
-    <div class="wrap">
-        <table id="container-table" class="bordered">
-            <thead>
-                <#-- <td id="thead-1">时间</td> -->
-                <td>
-                    <input type="button" id="toChinese" value="中文" class="btn">&nbsp;|&nbsp;
-                    <input type="button" id="toEnglish" value="English" class="btn">
-                </td>
-                <td id="thead-2">活动图片</td>
-                <td id="thead-3">活动详情</td>
-            </thead>
-            <tbody id="container-tbody">
-            <#-- <tr>
+<h2 id="title-1">无尽的边界 活动预告（contact me by : wang409322824@gmail.com。有时更新代码会重启服务器，如果偶尔访问不了可以稍后再试）</h2>
+<h3 id="title-2">tips: 【由于官方更新做了限制，目前无法再查看活动预告了！】</h3>
+<div class="wrap">
+    <table id="container-table" class="bordered">
+        <thead>
+        <#-- <td id="thead-1">时间</td> -->
+        <td>
+            <input type="button" id="toChinese" value="中文" class="btn">&nbsp;|&nbsp;
+            <input type="button" id="toEnglish" value="English" class="btn">
+        </td>
+        <td id="thead-2">活动图片</td>
+        <td id="thead-3">活动详情</td>
+        </thead>
+        <tbody id="container-tbody">
+        <#-- <tr>
                 <td>20171231</td>
                 <td>
                     <img src="http://ef-image.s3-website-us-west-1.amazonaws.com/news_20171231_02.jpg">
@@ -345,17 +345,17 @@
                     </a>
                 </td>
             </tr> -->
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 
-        <!-- bottom : top -->
-        <div class="bottom">
-            <a href="#">
-                <div id="top">▲ TOP</div>
-            </a>
-        </div>
+    <!-- bottom : top -->
+    <div class="bottom">
+        <a href="#">
+            <div id="top">▲ TOP</div>
+        </a>
+    </div>
 
-    </div><!-- //wrap -->
+</div><!-- //wrap -->
 
 </body>
 
@@ -376,8 +376,8 @@
                 if (!result) {
                     alert(lanVal['server_busy']);
                 } else {
-                    datas = result;
-                    buildTable();
+                    // datas = result;
+                    // buildTable();
                 }
             }
         });

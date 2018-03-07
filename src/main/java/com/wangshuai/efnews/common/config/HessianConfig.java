@@ -2,7 +2,6 @@ package com.wangshuai.efnews.common.config;
 
 import com.wangshuai.sso.share.service.AuthenticationRpcService;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.remoting.caucho.HessianProxyFactoryBean;
 
@@ -13,7 +12,7 @@ import org.springframework.remoting.caucho.HessianProxyFactoryBean;
  * @version V1.0
  * @date 2018-01-07 22:09
  */
-@Configuration
+//@Configuration
 public class HessianConfig {
 
     @Bean

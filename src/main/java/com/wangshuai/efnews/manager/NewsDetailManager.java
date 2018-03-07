@@ -8,7 +8,6 @@ import com.wangshuai.efnews.manager.http.MessageHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -102,7 +101,7 @@ public class NewsDetailManager {
     /**
      * 定时从网站获取信息
      */
-    @Scheduled(initialDelay = 10000, fixedRate = 30 * 60 * 1000)
+//    @Scheduled(initialDelay = 10000, fixedRate = 30 * 60 * 1000)
     public void getNewsFromSite() {
         MessageHttpClient mhc = httpPool.getMhc();
 
