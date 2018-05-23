@@ -184,7 +184,7 @@
     </appender>
 
     <!--全部的日志-->
-    <logger name="com.wedoctor" level="${efnews.loggingLevel}" >
+    <logger name="com.wangshuai" level="${efnews.loggingLevel}" >
         <appender-ref ref="ALL" />
     </logger>
 
